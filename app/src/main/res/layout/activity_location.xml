@@ -13,6 +13,14 @@
         android:text="Search"
         android:textSize="16sp"/>
 
+    <TextView
+        android:id="@+id/tvPlaces"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Places"
+        android:textSize="16sp"/>
+
     <fragment
         android:id="@+id/pacfrag"
         android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"

@@ -43,7 +43,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private PlaceAutocompleteFragment pacfrag;
     int PLACE_AUTOCOMPLETE_REQUEST_CODE = 2;
     private final String TAG = "MapsActivity";
-    private TextView tvSearch;
+    private TextView tvSearch, tvPlaces;
 
     private final double SOUTH_WEST_LAT = 15.975268;
     private final double SOUTH_WEST_LON = 77.544801;
@@ -96,31 +96,38 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 findPlaces();
             }
         });
+
+        tvPlaces.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MapsActivity.this, PlacesApiActivity.class));
+            }
+        });
     }
 
     void findPlaces() {
-//        try {
-//            PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-//
-//            startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
-//
-//        } catch (GooglePlayServicesRepairableException ex) {
-//            ex.printStackTrace();
-//        } catch (GooglePlayServicesNotAvailableException ex) {
-//            ex.printStackTrace();
-//        }
-
-
         try {
-            Intent intent =
-                    new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
-                            .build(this);
-            startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
-        } catch (GooglePlayServicesRepairableException e) {
-            // TODO: Handle the error.
-        } catch (GooglePlayServicesNotAvailableException e) {
-            // TODO: Handle the error.
+            PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+
+            startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
+
+        } catch (GooglePlayServicesRepairableException ex) {
+            ex.printStackTrace();
+        } catch (GooglePlayServicesNotAvailableException ex) {
+            ex.printStackTrace();
         }
+
+
+//        try {
+//            Intent intent =
+//                    new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
+//                            .build(this);
+//            startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
+//        } catch (GooglePlayServicesRepairableException e) {
+//            // TODO: Handle the error.
+//        } catch (GooglePlayServicesNotAvailableException e) {
+//            // TODO: Handle the error.
+//        }
     }
 
     @Override
@@ -190,5 +197,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         pacfrag = (PlaceAutocompleteFragment)getFragmentManager().findFragmentById(R.id.pacfrag);
 
         tvSearch = (TextView)findViewById(R.id.tvSearch);
+        tvPlaces = (TextView)findViewById(R.id.tvPlaces);
     }
 }
